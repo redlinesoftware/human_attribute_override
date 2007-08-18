@@ -1,6 +1,19 @@
 HumanAttributeOverride
 ======================
 
+Updates
+-------
+Aug. 18, 2007
+
+Attributes can now be specified with symbols or strings (only strings were accepted before)
+ex. attr_human_name :num_employees => 'Number of employees', 'unit_num' => 'Unit#'
+
+Attributes can also be accessed with symbols or strings
+ex.
+Company.human_attribute_name('num_employees') == 'Number of employees'
+Company.human_attribute_name(:num_employees) == 'Number of employees'
+
+
 After Rails 1.2, the method human_attribute_name will be removed, so this must be implemented as a plugin to keep the method and it's existing uses of the method intact, while adding additional functionality described below.
 
 
