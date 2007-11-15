@@ -3,6 +3,18 @@ HumanAttributeOverride
 
 -------
 Updates
+
+Nov. 14, 2007
+
+Fixed a bug where column.human_name didn't use the new attribute name.
+
+This should now produce the correct results:
+
+<% for column in Company.content_columns %>
+  <%= column.human_name %>
+<% end %>
+
+
 Aug. 18, 2007
 
 Attributes can now be specified with symbols or strings (only strings were accepted before)

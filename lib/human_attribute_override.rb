@@ -9,6 +9,9 @@ module ActiveRecord
       def attr_human_name(attributes) # :nodoc:
         attributes.stringify_keys!
         write_inheritable_hash("attr_human_name", attributes || {})
+
+        # assign the current class to each column that is being assigned a new human attribute name
+        self.columns.reject{|c| !attributes.has_key?(c.name)}.each{|c| c.parent_record_class = self}
       end
 
       # Returns a hash of alternate human name conversions set with <tt>attr_human_name</tt>.
@@ -27,8 +30,11 @@ module ActiveRecord
   module ConnectionAdapters #:nodoc:
     # An abstract definition of a column in a table.
     class Column
+      # the active record class that this column is associated with
+      attr_accessor :parent_record_class
+
       def human_name
-        Base.human_attribute_name(@name)
+        (@parent_record_class || Base).human_attribute_name(@name)
       end
     end
   end
